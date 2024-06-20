@@ -166,9 +166,8 @@ Metoden returnerar en omdirigering till /userManger med en query parameter för 
 
 * Ta Bort Användaren:
 userDetailsManager.deleteUser(username);
-return "deletedUserSuccessful";
-Om e-postadresserna matchar:
-Användaren tas bort från InMemoryUserDetailsManager med deleteUser.
+return "deletedUserSuccessful";.
+Om e-postadresserna matchar tas avändaren bort från InMemoryUserDetailsManager med deleteUser.
 Metoden returnerar vyn deletedUserSuccessful, vilket indikerar att borttagningen lyckades.
 
 
