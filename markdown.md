@@ -195,6 +195,7 @@ Denna metod är en getter-metod för fältet name i klassen UserApp. Den returne
 
 
 
+
 #Svar på fråga 2: Public betyder det att den kan nås från vilken annan klass som helst. 
 Detta innebär att det inte finns några restriktioner på varifrån denna metod eller variabel kan användas.
 Privat på en metod betyder att metoden är deklarerad som privat och kan endast nås från inom
@@ -202,23 +203,23 @@ den klass där den är deklarerad. Som private den är osynlig och otillgänglig
 
 Exempel Public:
 
-``` java
+```
  public class MyClass {
     public void myPublicMethod() {
         System.out.println("This is a public method.");
     }
 }
-
-       ```         
+```         
 
 Exempel Private:
 
-                     ```java
-                     public class MyClass {
-                     private void myPrivateMethod() {
+```
+public class MyClass {
+private void myPrivateMethod() {
                       
-                      }
-                                   ```
+}
+```
+
 
 #Svar på fråga 3: 
 När en metod är deklarerad med void innebär det att metoden inte returnerar något värde. 
@@ -228,15 +229,13 @@ eller en klass(som String, List,etc.) betyder att metoden returnerar ett värde 
 
 Exempel void:
 
-                  ```java
-                  public void printMessage() {
-                  System.out.println("Hello world!");
-                  }
-                                  ```
-
-                  MyClass obj = new MyClass();
-                  obj.printMessage(); // Skriver ut "Hello World!" men returnerar inget värde
-                                  ```
+```
+public void printMessage() {
+System.out.println("Hello world!");
+}
+MyClass obj = new MyClass();
+obj.printMessage(); // Skriver ut "Hello World!" men returnerar inget värde
+```
 
 
 #Svar på fråga 4: 
@@ -246,8 +245,12 @@ camelCase: Metodnamn bör skrivas i camelCase, vilket innebär att det första o
 med liten bokstav och varje efterföljande ord börjar med stor bokstav, exempel: public void calculateSum().
 Verb-baserade namn: Metodnamn bör vanligtvis vara verb eller verbfraser, 
 eftersom de beskriver en åtgärd eller operation som metoden utför. 
-exempel: public void printMessage() { ... }
+exempel: 
+
+```
+public void printMessage() { ... }
 public int getAge() { ... }
+```
 
 
 
@@ -256,14 +259,14 @@ I Java och liknande programmeringsspråk, när det inte finns något mellan pare
 innebär det att metoden inte tar emot några parametrar eller argument när den kallas. 
 Det betyder att metoden inte kräver någon specifik input för att kunna utföra sin uppgift.
                  
-                 ```java
-                 public class MyClass {
+```
+public class MyClass {
 
-                 // Metod som inte tar nogån argument och som inte returnerar något värde.
-                 public void printHello() {
-                  System.out.println("Hello, World!");
-                 }                                     
-                                 ```
+// Metod som inte tar nogån argument och som inte returnerar något värde.
+public void printHello() {
+System.out.println("Hello, World!");
+}                                     
+```
 
 #Svar på fråga 6: 
 Det som skickas med till metoden mellan parenteserna kallas antingen "parametrar" eller "argument". 
@@ -273,84 +276,89 @@ Ett argument är värdet eller referensen som skickas till metoden när den anro
 
 Exempel med parametrar och argument:
 
-                  ```java
-                  public class MyClass {
+```
+public class MyClass {
 
-                  // Metod med två parametrar
-                   public void addNumbers(int a, int b) {
-                   int sum = a + b;
-                   System.out.println("Sum: " + sum);
-                   }
+// Metod med två parametrar
+public void addNumbers(int a, int b) {
+int sum = a + b;
+System.out.println("Sum: " + sum);
+}
 
-                   public static void main(String[] args) {
-                   MyClass obj = new MyClass();
+public static void main(String[] args) {
+MyClass obj = new MyClass();
 
-                   // Anrop av metod med två argument
-                   obj.addNumbers(3, 5);  // 3 och 5 är argument som skickas till metoden
-                        }
-                    }              
-                               ```
+// Anrop av metod med två argument
+obj.addNumbers(3, 5);  // 3 och 5 är argument som skickas till metoden
+}
+}              
+```
+
 
 #Svar på fråga 7: 
 För att returnera summan av parametrarna a och b i metoden add, behöver vi använda ett return-statement för att 
 returnera resultatet av additionen.
 Exempel metod i koden:
 
-     ```java
-    public void add(int a, int b) {
-    int sum = a + b;
-    System.out.println("Summan av " + a + " och " + b + " är: " + sum);
-                              ```
+```
+public void add(int a, int b) {
+int sum = a + b;
+System.out.println("Summan av " + a + " och " + b + " är: " + sum);
+```
 
 #Svar på fråga 8: Exempel när man anropar denna metod från en annan metod:
 
-     ```java
-    public class MainClass {
+```
+public class MainClass {
 
-    public static void main(String[] args) {
-        MainClass obj = new MainClass();
+public static void main(String[] args) {
+MainClass obj = new MainClass();
         
-        // Anropa metoden add med specifika argument
-        obj.add(5, 3);
+// Anropa metoden add med specifika argument
+obj.add(5, 3);
         
-        // Du kan även anropa den med andra värden
-        obj.add(10, 20);
+// Man kan även anropa den med andra värden
+obj.add(10, 20);
     }
 
-    // Metoden som definierar hur addition sker
+// Metoden som definierar hur addition sker
     public void add(int a, int b) {
         int sum = a + b;
         System.out.println("Summan av " + a + " och " + b + " är: " + sum);
     }
 }
-                   ```
+```
+
 
 #Svar på fråga 9: Din klass med tom konstruktor:
 
-                  ```java
-                  public class HakansClass {
-                  // Tom konstruktor
-                  public HakansClass() {
-                   // Tom kropp utan argument
-                     }
-                  }
-                           ```
+```
+public class HakansClass {
+// Tom konstruktor
+public HakansClass() {
+// Tom kropp utan argument
+}
+}
+```
+
 
 #Svar på fråga 10: Primitiva typer lagras direkt i minnen, dom representerar enkla värden och dom
 är inte objekt.
 Exempel med primitiv typ:
 
-                     ```java
-                      // Primitiv typ med ett värde
-                     int number = 4;
-                            ```
+```
+// Primitiv typ med ett värde
+int number = 4;
+```
+
 Exempel med typ objekt: Objekt  representerar komplexa datastrukturer och är instanser av klasser.
 De lagras i minnet via referenser.
 
-                    ```java
-               // Skapande av ett objekt (en instans av en klass)
-               MyClass obj = new MyClass();
-                            ```
+```
+// Skapande av ett objekt (en instans av en klass)
+MyClass obj = new MyClass();
+```
+
 
 #Svar på fråga 11: Metoden börjar med ett verb som beskriver vad metoden utför eller gör, exempel 'additionSum'.
 Om man använder en verbform som början av metodnamnet kan man tydligt ange vad metoden gör och
@@ -358,19 +366,21 @@ det blir lättare för andra utvecklare att förstå dess syfte.
 
 Två exemplar med kodblock:
 
-                    ```java
-                    public class MyClass {
+```
+public class MyClass {
 
-                   // Metod för att beräkna summan av två tal
-                   public int calculateSum(int a, int b) {
-                   return a + b;
-                   }
+// Metod för att beräkna summan av två tal
+public int calculateSum(int a, int b) {
+return a + b;
+}
 
-                   // Metod för att skriva ut ett meddelande till konsolen
+// Metod för att skriva ut ett meddelande till konsolen
                    public void printMessage(String message) {
                    System.out.println(message);
                    }
-                             ```
+```
+
+
 #Svar på fråga 12:
 annotation @Override används för att markera en metod som ska ersätta en metod i en överordnad klass (superklass) 
 eller implementeras från ett interface. 
@@ -380,6 +390,7 @@ När en klass implementerar ett interface som definierar en metod, måste klasse
 metoden. @Override används för att tydligt markera att metoden i klassen är en implementation av den specificerade 
 metoden i interfacet.
 
+
 #Svar på fråga 13:
 Ja, det går kalla på den metoden i subklassen. 
 När en klass ärver från en annan klass i Java med extends-nyckelordet, så ärver den alla metoder och egenskaper som är 
@@ -388,7 +399,8 @@ MyCustomAuthenticationProver som ärver från DaoAuthenticationProvider, kan man
 authenticate(Authentication auth) som är deklarerad i superklassen DaoAuthenticationProvider.
 
 Exempel:
-```java
+
+```
   public class MyCustomAuthenticationProver extends DaoAuthenticationProvider {
     
     public MyCustomAuthenticationProver() {
@@ -403,7 +415,7 @@ Exempel:
         // Eventuell extra logik eller hantering här
     }
 }                  
-                      ```
+```
 
 
 #Svar på fråga 14:
@@ -419,6 +431,7 @@ Vid inloggning används PasswordEncoder för att jämföra det inmatade lösenor
 krypterade lösenordet i databasen. Om lösenorden matchar accepteras inloggningen.
 
 #Svar på fråga 15:
+
 ```xml
  <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
@@ -457,7 +470,7 @@ krypterade lösenordet i databasen. Om lösenorden matchar accepteras inloggning
 
 </configuration>
         
-                      ```
+```
 
 
 #Svar på fråga 16: 
