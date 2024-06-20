@@ -1,13 +1,186 @@
-#Beskrivning av vad jag har bidragit med under rupparbetet:
-
+#Beskrivning av vad jag har bidragit med under grupparbetet:
+Mest av arbetet utförde vi tillsammans och jag ansvarade mest på 'UserManagement' men jobbade också med 'Html', 'UserApp', pom.xml samt loggback.xml.
 
 
 #Vilken kod jag har bidragit med:
+Exempel på kod jag har bidragit med är:
+``` java
+ package com.george.securityproject.controller;
+//Denna kod är en del av en användarhanteringsmodul som hanterar användarvisning och borttagning med säkerhet och dataskydd
+//användarhanteringskontroller i ett Spring MVC.
+//Spring MVC (Model-View-Controller) är ett ramverk inom Java-baserade Spring Framework som används för att bygga webbapplikationer.
+// Importerar nödvändiga klasser och paket
+import com.george.securityproject.services.Html;
+import com.george.securityproject.services.Masking;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+// Markerar klassen som en Spring MVC Controller och mappar URL:en "/userManager" till denna klass.
+@Controller
+@RequestMapping("/userManager")
+public class UserManagement {
+    // Deklarerar instansvariabler
+    private final UserDetailsService userDetailsService;
+    private final Registration registration;
+    private final Html html;
+    private final Masking masking;
+
+    // Använder @Autowired för att automatiskt injicera beroenden via konstruktorn.
+    @Autowired
+    public UserManagement(Html html, UserDetailsService userDetailsService, Registration registration, Masking masking) {
+        this.html = html;
+        this.userDetailsService = userDetailsService;
+        this.registration = registration;
+        this.masking = masking;
+    }
+    // Hanterar GET-förfrågningar till "/userManager"
+    //GET-RequestMapping för att Visa Användarhanteringssidan
+    //@GetMapping är en annotering i Spring Framework som används för att mappa HTTP GET-förfrågningar till specifika metoder i en controller.
+    @GetMapping
+    public String userManagementPage(Model model, @RequestParam(value = "errorUsername", required = false) String errorUsername) {
+        // Hämtar inloggade användare från InMemoryUserDetailsManager
+        InMemoryUserDetailsManager userDetailsManager = (InMemoryUserDetailsManager) userDetailsService;
+        List<UserDetails> users = new ArrayList<>();
+        Map<String, String> userEmails = registration.getUserEmails();
+
+        try {
+            // Använder reflektion för att få tillgång till den privata "users" fältet i InMemoryUserDetailsManager
+            Field field = InMemoryUserDetailsManager.class.getDeclaredField("users");
+            field.setAccessible(true);
+            Map<String, UserDetails> usersMap = (Map<String, UserDetails>) field.get(userDetailsManager);
+            users.addAll(usersMap.values());
+        } catch (NoSuchFieldException | SecurityException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        // Maskerar e-postadresser
+        List<String> maskedEmails = new ArrayList<>();//en tom lista maskedEmails som ska innehålla de maskerade e-postadresserna.
+        for (UserDetails user : users) { //Denna for-loop itererar över varje UserDetails-objekt i listan users
+            String username = user.getUsername(); //För varje UserDetails-objekt hämtas användarnamnet med getUsername()
+            String email = userEmails.get(username); //userEmails är en Map<String, String> som mappar användarnamn till e-postadresser.
+            String maskedEmail = masking.maskEmail(email); // Mask the email using Masking service
+            maskedEmails.add(maskedEmail);//Den maskerade e-postadressen läggs till i listan maskedEmails.
+        }
+
+        //Denna kodbit lägger till attribut till en Model-instans och returnerar namnet på vyn som ska renderas.
+        // Lägger till attribut till modellen som ska användas i vyn
+        model.addAttribute("users", users);//model är en instans som används för att skicka data från kontroller till vy. addAttribute("users", users) lägger till attributet users till modellen
+        model.addAttribute("userEmails", maskedEmails);
+        if (errorUsername != null) { //Lägga till ett felmeddelande till modellen om det finns ett fel
+            model.addAttribute("errorUsername", errorUsername);
+        }
+        // Returnerar namnet på vyn som ska renderas
+        return "userManger";
+    }
+    // Hanterar POST-förfrågningar till "/userManager/delete"
+    //POST-RequestMapping för att Ta Bort en Användare
+    //@PostMapping är en annotering i Spring Framework som används för att mappa HTTP POST-förfrågningar till specifika metoder i en controller.
+    @PostMapping("/delete")
+    public String deleteUser(@RequestParam("username") String username, @RequestParam("email") String email, Model model) {
+        InMemoryUserDetailsManager userDetailsManager = (InMemoryUserDetailsManager) userDetailsService;
+        Map<String, String> userEmails = registration.getUserEmails();
+        String registeredEmail = userEmails.get(username);
+        // Kontrollerar att den angivna e-postadressen matchar den registrerade e-postadressen för användaren
+        if (!registeredEmail.equals(email)) {
+            model.addAttribute("errorUsername", username);
+            return "redirect:/userManger?errorUsername=" + username;
+        }
+        // Tar bort användaren om e-postadressen matchar
+        userDetailsManager.deleteUser(username);
+        return "deletedUserSuccessful";
+    }
+
+    //GET-RequestMapping för att Visa Framgångssida efter Radering
+    // Hanterar GET-förfrågningar till "/userManager/deletedUserSuccessful"
+    @GetMapping("/deletedUserSuccessful")
+    public String deletedUserSuccessful(){
+        return "deletedUserSuccessful";
+    }
+}
+
+
+       ```   
+
 
 
 
 #Beskriv utförligt vad just min kod gör, ge kodexempel med kodblock och förklara vad
 koden gör:
+Svar för koden ovan:
+Koden ovan beskriver en Spring MVC-controller som hanterar användarhantering inklusive visning och borttagning av användare med säkerhet och dataskyddsfunktioner. Koden i föregånde fråga implementerar en användarhanteringsmodul med funktionalitet för att visa och ta bort användare.
+Den inkluderar dataskydd genom att maskera e-postadresser, använder reflektion för att hämta användaruppgifter och kontrollerar noggrant användarens e-postadress innan borttagning för att förhindra obehöriga borttagningar.
+
+En kod Exempel är:
+ ```java
+ @PostMapping("/delete")
+public String deleteUser(@RequestParam("username") String username, @RequestParam("email") String email, Model model) {
+    InMemoryUserDetailsManager userDetailsManager = (InMemoryUserDetailsManager) userDetailsService;
+    Map<String, String> userEmails = registration.getUserEmails();
+    String registeredEmail = userEmails.get(username);
+
+    if (!registeredEmail.equals(email)) {
+        model.addAttribute("errorUsername", username);
+        return "redirect:/userManger?errorUsername=" + username;
+    }
+
+    userDetailsManager.deleteUser(username);
+    return "deletedUserSuccessful";
+}
+                    
+                                   ```
+
+Den här kodexemplet hanterar POST-förfrågningar till userManager delete för att ta bort en användare.
+Den kontrollerar att den angivna e-postadressen matchar den registrerade e-postadressen innan användaren tas bort.
+Om e-postadressen inte matchar, omdirigerar till användarhanteringssidan med ett felmeddelande.
+Vid lyckad borttagning, returnerar vyn deletedUserSuccessful.
+
+* Annotation @PostMapping("/delete") indikerar att denna metod hanterar POST-förfrågningar till URL
+/userManager/delete.
+
+* Metoden heter deleteUser och returnerar en String som representerar namnet på vyn som ska renderas.
+Metoden tar tre parametrar:
+@RequestParam("username") String username: Hämtar användarnamnet från förfrågan.
+@RequestParam("email") String email: Hämtar e-postadressen från förfrågan.
+Model model: En modell som används för att lägga till attribut som ska skickas till vyn.
+
+* Hämta InMemoryUserDetailsManager och Användarens E-postadresser.
+userDetailsManager: Hämtar InMemoryUserDetailsManager från userDetailsService.
+userEmails: Hämtar en karta över användarnamn och e-postadresser från registration.
+registeredEmail: Hämtar den registrerade e-postadressen för det specifika användarnamnet.
+
+* Kontrollera E-postadressen:
+ ```java
+if (!registeredEmail.equals(email)) {
+    model.addAttribute("errorUsername", username);
+    return "redirect:/userManger?errorUsername=" + username;
+}
+```
+
+Den här koden jämför den angivna e-postadressen med den registrerade e-postadressen.
+Om de inte matchar:
+Läggs användarnamnet till i modellen som ett felattribut (errorUsername).
+Metoden returnerar en omdirigering till /userManger med en query parameter för felanvändarnamnet.
+
+* Ta Bort Användaren:
+userDetailsManager.deleteUser(username);
+return "deletedUserSuccessful";
+Om e-postadresserna matchar:
+Användaren tas bort från InMemoryUserDetailsManager med deleteUser.
+Metoden returnerar vyn deletedUserSuccessful, vilket indikerar att borttagningen lyckades.
+
+
 
 
 
@@ -15,7 +188,17 @@ koden gör:
 
 
 #Svar på fråga 1:
+Exempel på en metod i min grupps webbapplikation:
 
+``` java
+ public String getName() {
+    return name;
+}
+
+       ```         
+
+
+Denna metod är en getter-metod för fältet name i klassen UserApp. Den returnerar värdet av name-fältet.
 
 
 
