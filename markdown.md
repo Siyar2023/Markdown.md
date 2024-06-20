@@ -193,9 +193,7 @@ Exempel på en metod i min grupps webbapplikation:
  public String getName() {
     return name;
 }
-
-       ```         
-
+    ```         
 
 Denna metod är en getter-metod för fältet name i klassen UserApp. Den returnerar värdet av name-fältet.
 
