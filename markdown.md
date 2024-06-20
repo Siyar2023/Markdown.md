@@ -1,4 +1,4 @@
-#Beskrivning av vad jag har bidragit med under grupparbetet:
+#Beskrivning av vad jag har bidragit med under grupparbetet: 
 Mest av arbetet utförde vi tillsammans och jag ansvarade mest på 'UserManagement' men jobbade också med 'Html', 'UserApp', pom.xml samt loggback.xml.
 
 
