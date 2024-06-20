@@ -161,8 +161,7 @@ if (!registeredEmail.equals(email)) {
 ```
 
 Den här koden jämför den angivna e-postadressen med den registrerade e-postadressen.
-Om de inte matchar:
-Läggs användarnamnet till i modellen som ett felattribut (errorUsername).
+Om de inte matchar så läggs användarnamnet till i modellen som ett felattribut (errorUsername).
 Metoden returnerar en omdirigering till /userManger med en query parameter för felanvändarnamnet.
 
 * Ta Bort Användaren:
