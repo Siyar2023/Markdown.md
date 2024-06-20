@@ -4,8 +4,8 @@ Mest av arbetet utförde vi tillsammans och jag ansvarade mest på 'UserManageme
 
 #Vilken kod jag har bidragit med:
 Exempel på kod jag har bidragit med är:
-``` java
- package com.george.securityproject.controller;
+```
+package com.george.securityproject.controller;
 //Denna kod är en del av en användarhanteringsmodul som hanterar användarvisning och borttagning med säkerhet och dataskydd
 //användarhanteringskontroller i ett Spring MVC.
 //Spring MVC (Model-View-Controller) är ett ramverk inom Java-baserade Spring Framework som används för att bygga webbapplikationer.
@@ -109,18 +109,17 @@ public class UserManagement {
         return "deletedUserSuccessful";
     }
 }
+```
 
-          ```
----
 
 #Beskriv utförligt vad just min kod gör, ge kodexempel med kodblock och förklara vad
 koden gör:
 Svar för koden ovan:
 Koden ovan beskriver en Spring MVC-controller som hanterar användarhantering inklusive visning och borttagning av användare med säkerhet och dataskyddsfunktioner. Koden i föregånde fråga implementerar en användarhanteringsmodul med funktionalitet för att visa och ta bort användare.
 Den inkluderar dataskydd genom att maskera e-postadresser, använder reflektion för att hämta användaruppgifter och kontrollerar noggrant användarens e-postadress innan borttagning för att förhindra obehöriga borttagningar.
----
+
 En kod Exempel är:
- ```java
+ ```
  @PostMapping("/delete")
 public String deleteUser(@RequestParam("username") String username, @RequestParam("email") String email, Model model) {
     InMemoryUserDetailsManager userDetailsManager = (InMemoryUserDetailsManager) userDetailsService;
@@ -135,8 +134,7 @@ public String deleteUser(@RequestParam("username") String username, @RequestPara
     userDetailsManager.deleteUser(username);
     return "deletedUserSuccessful";
 }
-                    
-                                   ```
+```
 
 Den här kodexemplet hanterar POST-förfrågningar till userManager delete för att ta bort en användare.
 Den kontrollerar att den angivna e-postadressen matchar den registrerade e-postadressen innan användaren tas bort.
