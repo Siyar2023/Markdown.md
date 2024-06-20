@@ -364,12 +364,12 @@ Två exemplar med kodblock:
 ```
 public class MyClass {
 
-// Metod för att beräkna summan av två tal
+// Metod 1 för att beräkna summan av två tal
 public int calculateSum(int a, int b) {
 return a + b;
 }
 
-// Metod för att skriva ut ett meddelande till konsolen
+// Metod 2 för att skriva ut ett meddelande till konsolen
                    public void printMessage(String message) {
                    System.out.println(message);
                    }
