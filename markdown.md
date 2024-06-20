@@ -112,10 +112,7 @@ public class UserManagement {
 ```
 
 
-#Beskriv utförligt vad just min kod gör, ge kodexempel med kodblock och förklara vad
-koden gör:
-Svar för koden ovan:
-Koden ovan beskriver en Spring MVC-controller som hanterar användarhantering inklusive visning och borttagning av användare med säkerhet och dataskyddsfunktioner. Koden i föregånde fråga implementerar en användarhanteringsmodul med funktionalitet för att visa och ta bort användare.
+#Koden ovan beskriver en Spring MVC-controller som hanterar användarhantering inklusive visning och borttagning av användare med säkerhet och dataskyddsfunktioner. Koden i föregånde fråga implementerar en användarhanteringsmodul med funktionalitet för att visa och ta bort användare.
 Den inkluderar dataskydd genom att maskera e-postadresser, använder reflektion för att hämta användaruppgifter och kontrollerar noggrant användarens e-postadress innan borttagning för att förhindra obehöriga borttagningar.
 
 En kod Exempel är:
